@@ -672,7 +672,7 @@ class WithReasoning(BaseModel):
     reasoning: typing.Optional[str] = None
 
 # #########################################################################
-# Generated type aliases (20)
+# Generated type aliases (24)
 # #########################################################################
 
 
@@ -683,6 +683,18 @@ Combination: typing_extensions.TypeAlias = typing.Optional[typing.Union[int, str
 
 
 Currency: typing_extensions.TypeAlias = typing.Optional[types.Checked[int, typing_extensions.Literal['gt_ten']]]
+
+
+DynamicAliasReturn: typing_extensions.TypeAlias = typing.Optional[str]
+
+
+DynamicFieldType: typing_extensions.TypeAlias = typing.Optional[str]
+
+
+DynamicInputType: typing_extensions.TypeAlias = typing.Optional[str]
+
+
+DynamicReturnType: typing_extensions.TypeAlias = typing.Optional[str]
 
 
 Graph: typing_extensions.TypeAlias = typing.Dict[str, typing.List[str]]

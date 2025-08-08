@@ -26,6 +26,10 @@ import (
 type Amount = *int64
 type Combination = *types.Union6BoolOrFloatOrIntOrListStringOrMapStringKeyListStringValueOrString
 type Currency = *types.Checked[int64]
+type DynamicAliasReturn = *string
+type DynamicFieldType = *string
+type DynamicInputType = *string
+type DynamicReturnType = *string
 type Graph = map[string][]string
 type JsonArray = []JsonValue
 type JsonEntry = *Union2JsonTemplateOrSimpleTag

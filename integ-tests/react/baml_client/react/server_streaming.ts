@@ -1254,6 +1254,54 @@ export const GetDataType = async (
 };
 
 /**
+ * Executes the streaming variant of the "GetDynamic" BAML action.
+ *
+ * This action initiates a streaming response by calling the corresponding
+ * BAML stream function. The returned stream yields incremental updates.
+ *
+ *
+ * @returns {ReadableStream<Uint8Array>} A stream that yields incremental updates from the action.
+ */
+export const GetDynamic = async (
+): Promise<ReadableStream<Uint8Array>> => {
+  const stream = b.stream.GetDynamic(
+  );
+  return Promise.resolve(stream.toStreamable());
+};
+
+/**
+ * Executes the streaming variant of the "GetDynamicValue" BAML action.
+ *
+ * This action initiates a streaming response by calling the corresponding
+ * BAML stream function. The returned stream yields incremental updates.
+ *
+ *
+ * @returns {ReadableStream<Uint8Array>} A stream that yields incremental updates from the action.
+ */
+export const GetDynamicValue = async (
+): Promise<ReadableStream<Uint8Array>> => {
+  const stream = b.stream.GetDynamicValue(
+  );
+  return Promise.resolve(stream.toStreamable());
+};
+
+/**
+ * Executes the streaming variant of the "GetDynamicValueAsync" BAML action.
+ *
+ * This action initiates a streaming response by calling the corresponding
+ * BAML stream function. The returned stream yields incremental updates.
+ *
+ *
+ * @returns {ReadableStream<Uint8Array>} A stream that yields incremental updates from the action.
+ */
+export const GetDynamicValueAsync = async (
+): Promise<ReadableStream<Uint8Array>> => {
+  const stream = b.stream.GetDynamicValueAsync(
+  );
+  return Promise.resolve(stream.toStreamable());
+};
+
+/**
  * Executes the streaming variant of the "GetOrderInfo" BAML action.
  *
  * This action initiates a streaming response by calling the corresponding
@@ -1756,6 +1804,44 @@ export const PrimitiveAlias = async (
 ): Promise<ReadableStream<Uint8Array>> => {
   const stream = b.stream.PrimitiveAlias(
     p,
+  );
+  return Promise.resolve(stream.toStreamable());
+};
+
+/**
+ * Executes the streaming variant of the "ProcessDynamic" BAML action.
+ *
+ * This action initiates a streaming response by calling the corresponding
+ * BAML stream function. The returned stream yields incremental updates.
+ *
+ * @param { undefined } input - Input parameter.
+ *
+ * @returns {ReadableStream<Uint8Array>} A stream that yields incremental updates from the action.
+ */
+export const ProcessDynamic = async (
+  input: undefined,
+): Promise<ReadableStream<Uint8Array>> => {
+  const stream = b.stream.ProcessDynamic(
+    input,
+  );
+  return Promise.resolve(stream.toStreamable());
+};
+
+/**
+ * Executes the streaming variant of the "ProcessDynamicData" BAML action.
+ *
+ * This action initiates a streaming response by calling the corresponding
+ * BAML stream function. The returned stream yields incremental updates.
+ *
+ * @param { undefined } input_data - Input parameter.
+ *
+ * @returns {ReadableStream<Uint8Array>} A stream that yields incremental updates from the action.
+ */
+export const ProcessDynamicData = async (
+  input_data: undefined,
+): Promise<ReadableStream<Uint8Array>> => {
+  const stream = b.stream.ProcessDynamicData(
+    input_data,
   );
   return Promise.resolve(stream.toStreamable());
 };

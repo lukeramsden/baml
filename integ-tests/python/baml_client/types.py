@@ -591,7 +591,7 @@ class WithReasoning(BaseModel):
     reasoning: str
 
 # #########################################################################
-# Generated type aliases (20)
+# Generated type aliases (24)
 # #########################################################################
 
 
@@ -602,6 +602,18 @@ Combination: typing_extensions.TypeAlias = typing.Union[int, str, bool, float, t
 
 
 Currency: typing_extensions.TypeAlias = Checked[int, typing_extensions.Literal['gt_ten']]
+
+
+DynamicAliasReturn: typing_extensions.TypeAlias = str
+
+
+DynamicFieldType: typing_extensions.TypeAlias = str
+
+
+DynamicInputType: typing_extensions.TypeAlias = str
+
+
+DynamicReturnType: typing_extensions.TypeAlias = str
 
 
 Graph: typing_extensions.TypeAlias = typing.Dict[str, typing.List[str]]

@@ -924,7 +924,7 @@ module BamlClient
   end
 
   # #########################################################################
-  # Generated type aliases (20)
+  # Generated type aliases (24)
   # #########################################################################
 
 
@@ -935,6 +935,18 @@ module BamlClient
 
 
   Currency = T.type_alias{ Checked[Integer] }
+
+
+  DynamicAliasReturn = T.type_alias{ String }
+
+
+  DynamicFieldType = T.type_alias{ String }
+
+
+  DynamicInputType = T.type_alias{ String }
+
+
+  DynamicReturnType = T.type_alias{ String }
 
 
   Graph = T.type_alias{ T::Hash[String, T::Array[String]] }

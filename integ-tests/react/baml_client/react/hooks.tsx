@@ -3514,6 +3514,150 @@ export function useGetDataType(
   }
 }
 /**
+ * A specialized hook for the GetDynamic BAML function that supports both streaming and non‑streaming responses.
+ *
+ * **Input Types:**
+ *
+ *
+ * **Return Type:**
+ * - **Non‑streaming:** undefined
+ * - **Streaming Partial:** undefined
+ * - **Streaming Final:** undefined
+ *
+ * **Usage Patterns:**
+ * 1. **Non‑streaming (Default)**
+ *    - Best for quick responses and simple UI updates.
+ * 2. **Streaming**
+ *    - Ideal for long‑running operations or real‑time feedback.
+ *
+ * **Edge Cases:**
+ * - Ensure robust error handling via `onError`.
+ * - Handle cases where partial data may be incomplete or missing.
+ *
+ * @example
+ * ```tsx
+ * // Basic non‑streaming usage:
+ * const { data, error, isLoading, mutate } = useGetDynamic({ stream: false});
+ *
+ * // Streaming usage:
+ * const { data, streamData, isLoading, error, mutate } = useGetDynamic({
+ *   stream: true | undefined,
+ *   onStreamData: (partial) => console.log('Partial update:', partial),
+ *   onFinalData: (final) => console.log('Final result:', final),
+ *   onError: (err) => console.error('Error:', err),
+ * });
+ * ```
+ */
+export function useGetDynamic(props: HookInput<'GetDynamic', { stream: false }>): HookOutput<'GetDynamic', { stream: false }>
+export function useGetDynamic(props?: HookInput<'GetDynamic', { stream?: true }>): HookOutput<'GetDynamic', { stream: true }>
+export function useGetDynamic(
+  props: HookInput<'GetDynamic', { stream?: boolean }> = {},
+): HookOutput<'GetDynamic', { stream: true }> | HookOutput<'GetDynamic', { stream: false }> {
+  let action: ServerAction = Actions.GetDynamic;
+  if (isStreamingProps(props)) {
+    action = StreamingActions.GetDynamic;
+    return useBamlAction(action, props)
+  } else {
+    return useBamlAction(action, props as HookInput<'GetDynamic', { stream: false }>)
+  }
+}
+/**
+ * A specialized hook for the GetDynamicValue BAML function that supports both streaming and non‑streaming responses.
+ *
+ * **Input Types:**
+ *
+ *
+ * **Return Type:**
+ * - **Non‑streaming:** undefined
+ * - **Streaming Partial:** undefined
+ * - **Streaming Final:** undefined
+ *
+ * **Usage Patterns:**
+ * 1. **Non‑streaming (Default)**
+ *    - Best for quick responses and simple UI updates.
+ * 2. **Streaming**
+ *    - Ideal for long‑running operations or real‑time feedback.
+ *
+ * **Edge Cases:**
+ * - Ensure robust error handling via `onError`.
+ * - Handle cases where partial data may be incomplete or missing.
+ *
+ * @example
+ * ```tsx
+ * // Basic non‑streaming usage:
+ * const { data, error, isLoading, mutate } = useGetDynamicValue({ stream: false});
+ *
+ * // Streaming usage:
+ * const { data, streamData, isLoading, error, mutate } = useGetDynamicValue({
+ *   stream: true | undefined,
+ *   onStreamData: (partial) => console.log('Partial update:', partial),
+ *   onFinalData: (final) => console.log('Final result:', final),
+ *   onError: (err) => console.error('Error:', err),
+ * });
+ * ```
+ */
+export function useGetDynamicValue(props: HookInput<'GetDynamicValue', { stream: false }>): HookOutput<'GetDynamicValue', { stream: false }>
+export function useGetDynamicValue(props?: HookInput<'GetDynamicValue', { stream?: true }>): HookOutput<'GetDynamicValue', { stream: true }>
+export function useGetDynamicValue(
+  props: HookInput<'GetDynamicValue', { stream?: boolean }> = {},
+): HookOutput<'GetDynamicValue', { stream: true }> | HookOutput<'GetDynamicValue', { stream: false }> {
+  let action: ServerAction = Actions.GetDynamicValue;
+  if (isStreamingProps(props)) {
+    action = StreamingActions.GetDynamicValue;
+    return useBamlAction(action, props)
+  } else {
+    return useBamlAction(action, props as HookInput<'GetDynamicValue', { stream: false }>)
+  }
+}
+/**
+ * A specialized hook for the GetDynamicValueAsync BAML function that supports both streaming and non‑streaming responses.
+ *
+ * **Input Types:**
+ *
+ *
+ * **Return Type:**
+ * - **Non‑streaming:** undefined
+ * - **Streaming Partial:** undefined
+ * - **Streaming Final:** undefined
+ *
+ * **Usage Patterns:**
+ * 1. **Non‑streaming (Default)**
+ *    - Best for quick responses and simple UI updates.
+ * 2. **Streaming**
+ *    - Ideal for long‑running operations or real‑time feedback.
+ *
+ * **Edge Cases:**
+ * - Ensure robust error handling via `onError`.
+ * - Handle cases where partial data may be incomplete or missing.
+ *
+ * @example
+ * ```tsx
+ * // Basic non‑streaming usage:
+ * const { data, error, isLoading, mutate } = useGetDynamicValueAsync({ stream: false});
+ *
+ * // Streaming usage:
+ * const { data, streamData, isLoading, error, mutate } = useGetDynamicValueAsync({
+ *   stream: true | undefined,
+ *   onStreamData: (partial) => console.log('Partial update:', partial),
+ *   onFinalData: (final) => console.log('Final result:', final),
+ *   onError: (err) => console.error('Error:', err),
+ * });
+ * ```
+ */
+export function useGetDynamicValueAsync(props: HookInput<'GetDynamicValueAsync', { stream: false }>): HookOutput<'GetDynamicValueAsync', { stream: false }>
+export function useGetDynamicValueAsync(props?: HookInput<'GetDynamicValueAsync', { stream?: true }>): HookOutput<'GetDynamicValueAsync', { stream: true }>
+export function useGetDynamicValueAsync(
+  props: HookInput<'GetDynamicValueAsync', { stream?: boolean }> = {},
+): HookOutput<'GetDynamicValueAsync', { stream: true }> | HookOutput<'GetDynamicValueAsync', { stream: false }> {
+  let action: ServerAction = Actions.GetDynamicValueAsync;
+  if (isStreamingProps(props)) {
+    action = StreamingActions.GetDynamicValueAsync;
+    return useBamlAction(action, props)
+  } else {
+    return useBamlAction(action, props as HookInput<'GetDynamicValueAsync', { stream: false }>)
+  }
+}
+/**
  * A specialized hook for the GetOrderInfo BAML function that supports both streaming and non‑streaming responses.
  *
  * **Input Types:**
@@ -4857,6 +5001,106 @@ export function usePrimitiveAlias(
     return useBamlAction(action, props)
   } else {
     return useBamlAction(action, props as HookInput<'PrimitiveAlias', { stream: false }>)
+  }
+}
+/**
+ * A specialized hook for the ProcessDynamic BAML function that supports both streaming and non‑streaming responses.
+ *
+ * **Input Types:**
+ *
+ * - input: undefined
+ *
+ *
+ * **Return Type:**
+ * - **Non‑streaming:** string
+ * - **Streaming Partial:** string
+ * - **Streaming Final:** string
+ *
+ * **Usage Patterns:**
+ * 1. **Non‑streaming (Default)**
+ *    - Best for quick responses and simple UI updates.
+ * 2. **Streaming**
+ *    - Ideal for long‑running operations or real‑time feedback.
+ *
+ * **Edge Cases:**
+ * - Ensure robust error handling via `onError`.
+ * - Handle cases where partial data may be incomplete or missing.
+ *
+ * @example
+ * ```tsx
+ * // Basic non‑streaming usage:
+ * const { data, error, isLoading, mutate } = useProcessDynamic({ stream: false});
+ *
+ * // Streaming usage:
+ * const { data, streamData, isLoading, error, mutate } = useProcessDynamic({
+ *   stream: true | undefined,
+ *   onStreamData: (partial) => console.log('Partial update:', partial),
+ *   onFinalData: (final) => console.log('Final result:', final),
+ *   onError: (err) => console.error('Error:', err),
+ * });
+ * ```
+ */
+export function useProcessDynamic(props: HookInput<'ProcessDynamic', { stream: false }>): HookOutput<'ProcessDynamic', { stream: false }>
+export function useProcessDynamic(props?: HookInput<'ProcessDynamic', { stream?: true }>): HookOutput<'ProcessDynamic', { stream: true }>
+export function useProcessDynamic(
+  props: HookInput<'ProcessDynamic', { stream?: boolean }> = {},
+): HookOutput<'ProcessDynamic', { stream: true }> | HookOutput<'ProcessDynamic', { stream: false }> {
+  let action: ServerAction = Actions.ProcessDynamic;
+  if (isStreamingProps(props)) {
+    action = StreamingActions.ProcessDynamic;
+    return useBamlAction(action, props)
+  } else {
+    return useBamlAction(action, props as HookInput<'ProcessDynamic', { stream: false }>)
+  }
+}
+/**
+ * A specialized hook for the ProcessDynamicData BAML function that supports both streaming and non‑streaming responses.
+ *
+ * **Input Types:**
+ *
+ * - input_data: undefined
+ *
+ *
+ * **Return Type:**
+ * - **Non‑streaming:** undefined
+ * - **Streaming Partial:** undefined
+ * - **Streaming Final:** undefined
+ *
+ * **Usage Patterns:**
+ * 1. **Non‑streaming (Default)**
+ *    - Best for quick responses and simple UI updates.
+ * 2. **Streaming**
+ *    - Ideal for long‑running operations or real‑time feedback.
+ *
+ * **Edge Cases:**
+ * - Ensure robust error handling via `onError`.
+ * - Handle cases where partial data may be incomplete or missing.
+ *
+ * @example
+ * ```tsx
+ * // Basic non‑streaming usage:
+ * const { data, error, isLoading, mutate } = useProcessDynamicData({ stream: false});
+ *
+ * // Streaming usage:
+ * const { data, streamData, isLoading, error, mutate } = useProcessDynamicData({
+ *   stream: true | undefined,
+ *   onStreamData: (partial) => console.log('Partial update:', partial),
+ *   onFinalData: (final) => console.log('Final result:', final),
+ *   onError: (err) => console.error('Error:', err),
+ * });
+ * ```
+ */
+export function useProcessDynamicData(props: HookInput<'ProcessDynamicData', { stream: false }>): HookOutput<'ProcessDynamicData', { stream: false }>
+export function useProcessDynamicData(props?: HookInput<'ProcessDynamicData', { stream?: true }>): HookOutput<'ProcessDynamicData', { stream: true }>
+export function useProcessDynamicData(
+  props: HookInput<'ProcessDynamicData', { stream?: boolean }> = {},
+): HookOutput<'ProcessDynamicData', { stream: true }> | HookOutput<'ProcessDynamicData', { stream: false }> {
+  let action: ServerAction = Actions.ProcessDynamicData;
+  if (isStreamingProps(props)) {
+    action = StreamingActions.ProcessDynamicData;
+    return useBamlAction(action, props)
+  } else {
+    return useBamlAction(action, props as HookInput<'ProcessDynamicData', { stream: false }>)
   }
 }
 /**

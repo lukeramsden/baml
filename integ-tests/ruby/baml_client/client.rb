@@ -1622,6 +1622,81 @@ module BamlClient
       end
       sig {params(
           varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(T.anything)}
+      def GetDynamic(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamic may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          result = options.call_function_sync(function_name: "GetDynamic", args: {
+
+          })
+
+          parsed = result.parsed_using_types(BamlClient::Types, BamlClient::PartialTypes, false)
+          # for sorbet we need to cast to the return type since parsed is now the right value
+          # We just need to tell sorbet that the return type is the right type
+          parsed.cast_to(T.anything)
+      end
+      sig {params(
+          varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(T.anything)}
+      def GetDynamicValue(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamicValue may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          result = options.call_function_sync(function_name: "GetDynamicValue", args: {
+
+          })
+
+          parsed = result.parsed_using_types(BamlClient::Types, BamlClient::PartialTypes, false)
+          # for sorbet we need to cast to the return type since parsed is now the right value
+          # We just need to tell sorbet that the return type is the right type
+          parsed.cast_to(T.anything)
+      end
+      sig {params(
+          varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(T.anything)}
+      def GetDynamicValueAsync(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamicValueAsync may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          result = options.call_function_sync(function_name: "GetDynamicValueAsync", args: {
+
+          })
+
+          parsed = result.parsed_using_types(BamlClient::Types, BamlClient::PartialTypes, false)
+          # for sorbet we need to cast to the return type since parsed is now the right value
+          # We just need to tell sorbet that the return type is the right type
+          parsed.cast_to(T.anything)
+      end
+      sig {params(
+          varargs: T.untyped,
           email: BamlClient::Types::Email,
           baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
       ).returns(BamlClient::Types::OrderInfo)}
@@ -2294,6 +2369,56 @@ module BamlClient
           # for sorbet we need to cast to the return type since parsed is now the right value
           # We just need to tell sorbet that the return type is the right type
           parsed.cast_to(T.any(Integer, String, T::Boolean, Float))
+      end
+      sig {params(
+          varargs: T.untyped,
+          input: T.anything,
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(String)}
+      def ProcessDynamic(
+          *varargs,
+          input:,
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("ProcessDynamic may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          result = options.call_function_sync(function_name: "ProcessDynamic", args: {
+              input: input,
+          })
+
+          parsed = result.parsed_using_types(BamlClient::Types, BamlClient::PartialTypes, false)
+          # for sorbet we need to cast to the return type since parsed is now the right value
+          # We just need to tell sorbet that the return type is the right type
+          parsed.cast_to(String)
+      end
+      sig {params(
+          varargs: T.untyped,
+          input_data: T.anything,
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(T.anything)}
+      def ProcessDynamicData(
+          *varargs,
+          input_data:,
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("ProcessDynamicData may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          result = options.call_function_sync(function_name: "ProcessDynamicData", args: {
+              input_data: input_data,
+          })
+
+          parsed = result.parsed_using_types(BamlClient::Types, BamlClient::PartialTypes, false)
+          # for sorbet we need to cast to the return type since parsed is now the right value
+          # We just need to tell sorbet that the return type is the right type
+          parsed.cast_to(T.anything)
       end
       sig {params(
           varargs: T.untyped,
@@ -6883,6 +7008,81 @@ module BamlClient
       end
       sig {params(
           varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(Baml::BamlStream[T.anything, T.anything])}
+      def GetDynamic(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamic may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          ctx, result = options.create_sync_stream(function_name: "GetDynamic", args: {
+
+          })
+
+          Baml::BamlStream[T.anything, T.anything].new(
+              ffi_stream: result,
+              ctx_manager: ctx
+          )
+      end
+      sig {params(
+          varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(Baml::BamlStream[T.anything, T.anything])}
+      def GetDynamicValue(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamicValue may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          ctx, result = options.create_sync_stream(function_name: "GetDynamicValue", args: {
+
+          })
+
+          Baml::BamlStream[T.anything, T.anything].new(
+              ffi_stream: result,
+              ctx_manager: ctx
+          )
+      end
+      sig {params(
+          varargs: T.untyped,
+
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(Baml::BamlStream[T.anything, T.anything])}
+      def GetDynamicValueAsync(
+          *varargs,
+
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("GetDynamicValueAsync may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          ctx, result = options.create_sync_stream(function_name: "GetDynamicValueAsync", args: {
+
+          })
+
+          Baml::BamlStream[T.anything, T.anything].new(
+              ffi_stream: result,
+              ctx_manager: ctx
+          )
+      end
+      sig {params(
+          varargs: T.untyped,
           email: BamlClient::Types::Email,
           baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
       ).returns(Baml::BamlStream[BamlClient::StreamTypes::OrderInfo, BamlClient::Types::OrderInfo])}
@@ -7552,6 +7752,56 @@ module BamlClient
           })
 
           Baml::BamlStream[T.any(Integer, String, T::Boolean, Float), T.any(Integer, String, T::Boolean, Float)].new(
+              ffi_stream: result,
+              ctx_manager: ctx
+          )
+      end
+      sig {params(
+          varargs: T.untyped,
+          input: T.anything,
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(Baml::BamlStream[String, String])}
+      def ProcessDynamic(
+          *varargs,
+          input:,
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("ProcessDynamic may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          ctx, result = options.create_sync_stream(function_name: "ProcessDynamic", args: {
+              input: input,
+          })
+
+          Baml::BamlStream[String, String].new(
+              ffi_stream: result,
+              ctx_manager: ctx
+          )
+      end
+      sig {params(
+          varargs: T.untyped,
+          input_data: T.anything,
+          baml_options: T::Hash[Symbol, T.any(BamlClient::TypeBuilder, Baml::ClientRegistry, T.any(Baml::Collector, T::Array[Baml::Collector]), T::Hash[Symbol, String])]
+      ).returns(Baml::BamlStream[T.anything, T.anything])}
+      def ProcessDynamicData(
+          *varargs,
+          input_data:,
+          baml_options: {}
+      )
+          if varargs.any?
+              raise ArgumentError.new("ProcessDynamicData may only be called with keyword arguments")
+          end
+
+          options = @options.merge_options(BamlCallOptions.from_hash(baml_options))
+
+          ctx, result = options.create_sync_stream(function_name: "ProcessDynamicData", args: {
+              input_data: input_data,
+          })
+
+          Baml::BamlStream[T.anything, T.anything].new(
               ffi_stream: result,
               ctx_manager: ctx
           )
