@@ -5,7 +5,7 @@ type DynamicReturnType = @@dynamic
 type DynamicInputType = @@dynamic
 type DynamicFieldType = @@dynamic
 
-client<llm> TestClient {
+client<llm> DynamicTestClient {
   provider openai
   options {
     model gpt-4
@@ -15,7 +15,7 @@ client<llm> TestClient {
 
 // Simple function that returns a dynamic type
 function GetDynamicValue() -> DynamicReturnType {
-  client TestClient
+  client DynamicTestClient
   prompt #"
     Return the number 42 if expecting an integer.
     Return 'Hello, dynamic world!' if expecting a string.
@@ -26,7 +26,7 @@ function GetDynamicValue() -> DynamicReturnType {
 
 // Async version of the function
 function GetDynamicValueAsync() -> DynamicReturnType {
-  client TestClient
+  client DynamicTestClient
   prompt #"
     Return a string value: 'Async dynamic response'
   "#
@@ -34,7 +34,7 @@ function GetDynamicValueAsync() -> DynamicReturnType {
 
 // Function with dynamic input and output
 function ProcessDynamicData(input_data: DynamicInputType) -> DynamicReturnType {
-  client TestClient
+  client DynamicTestClient
   prompt #"
     You received: {{ input_data }}
     Return the length of the input as an integer.
