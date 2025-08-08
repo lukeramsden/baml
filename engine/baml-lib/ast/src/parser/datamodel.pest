@@ -91,7 +91,8 @@ namespaced_identifier = ${ single_word ~ ("::" ~ single_word)+ }
 // ######################################
 // Type Alias
 // ######################################
-type_alias = { identifier ~ identifier ~ assignment ~ field_type_with_attr }
+type_alias = { identifier ~ identifier ~ assignment ~ (dynamic_type_marker | field_type_with_attr) }
+dynamic_type_marker = { "@@dynamic" }
 
 // ######################################
 // Arguments

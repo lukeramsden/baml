@@ -130,6 +130,21 @@ export class TypeBuilder {
   addBaml(baml: string): void {
     this.tb.addBaml(baml, this.runtime)
   }
+
+  /**
+   * Sets a type alias to a specific type. This is used to replace dynamic type aliases
+   * (defined as `type X = @@dynamic` in BAML) with concrete types at runtime.
+   * 
+   * @param name - The name of the type alias to set
+   * @param type - The concrete type to use for this alias
+   * 
+   * @example
+   * tb.typeAlias("DynamicReturnType", tb.int())
+   * tb.typeAlias("FlexibleType", tb.union([tb.string(), tb.int()]))
+   */
+  typeAlias(name: string, type: FieldType): void {
+    this.tb.typeAlias(name, type)
+  }
 }
 
 export class ClassAst<ClassName extends string, Properties extends string = string> {

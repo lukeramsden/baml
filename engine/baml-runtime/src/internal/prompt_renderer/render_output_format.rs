@@ -476,6 +476,13 @@ fn relevant_data_models<'a>(
                     }
                 }
             }
+            TypeIR::DynamicTypeAlias { name, .. } => {
+                // Dynamic type aliases should be replaced at runtime via type_alias_overrides
+                if let Some(replacement_type) = ctx.type_alias_overrides.get(name) {
+                    stack.push(replacement_type.clone());
+                }
+                // If no replacement found, the type remains unresolved (which will be an error)
+            }
             TypeIR::Literal(_, _) => {}
             TypeIR::Primitive(_, _) => {}
             TypeIR::Arrow(_, _) => {}

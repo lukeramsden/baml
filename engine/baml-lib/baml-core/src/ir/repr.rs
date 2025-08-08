@@ -113,7 +113,8 @@ impl Pass2Repr {
                 TypeValue::String | TypeValue::Media(..) | TypeValue::Null,
                 ..,
             )
-            | TypeGeneric::RecursiveTypeAlias { .. } => {}
+            | TypeGeneric::RecursiveTypeAlias { .. }
+            | TypeGeneric::DynamicTypeAlias { .. } => {}
             TypeGeneric::List(element, meta) => {
                 meta.streaming_behavior.needed = true;
                 element.meta_mut().streaming_behavior.needed = true;
@@ -1517,7 +1518,9 @@ impl WithRepr<TypeIR> for ast::FieldType {
                     stack.extend(items.iter());
                 }
                 // No identifiers here.
-                ast::FieldType::Primitive(..) | ast::FieldType::Literal(..) => {}
+                ast::FieldType::Primitive(..)
+                | ast::FieldType::Literal(..)
+                | ast::FieldType::Dynamic(..) => {}
             }
         }
 
@@ -1592,7 +1595,17 @@ impl WithRepr<TypeIR> for ast::FieldType {
                                 meta: Default::default(),
                             }
                         } else {
-                            alias_walker.resolved().to_owned().repr(db)?
+                            // Check if the alias points to @@dynamic
+                            if let ast::FieldType::Dynamic(..) = alias_walker.target() {
+                                // For dynamic type aliases, we create a special TypeIR that will be
+                                // replaced at runtime by TypeBuilder overrides
+                                TypeIR::DynamicTypeAlias {
+                                    name: alias_walker.name().to_string(),
+                                    meta: Default::default(),
+                                }
+                            } else {
+                                alias_walker.resolved().to_owned().repr(db)?
+                            }
                         }
                     }
 
@@ -1653,6 +1666,14 @@ impl WithRepr<TypeIR> for ast::FieldType {
                 ),
                 arity,
             ),
+            ast::FieldType::Dynamic(arity, ..) => {
+                // Dynamic types are placeholders that will be replaced at runtime
+                // For now, treat them as a special string type with metadata
+                type_with_arity(
+                    TypeIR::Primitive(baml_types::TypeValue::String, Default::default()),
+                    arity,
+                )
+            }
         };
 
         let use_metadata = has_constraints || has_special_streaming_behavior;

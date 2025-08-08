@@ -919,6 +919,7 @@ fn get_dummy_value(
                 .join(", ");
             Some(format!("({dummy},)"))
         }
+        baml_runtime::TypeIR::DynamicTypeAlias { .. } => None,
         baml_runtime::TypeIR::Arrow(..) => None,
     }
 }

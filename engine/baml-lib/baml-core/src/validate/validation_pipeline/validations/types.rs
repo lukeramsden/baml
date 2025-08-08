@@ -117,6 +117,9 @@ fn validate_type_allowed(ctx: &mut Context<'_>, field_type: &FieldType) {
                 validate_type_allowed(ctx, field_type);
             }
         }
+        FieldType::Dynamic(..) => {
+            // Dynamic types are allowed and will be validated at runtime
+        }
     }
 }
 

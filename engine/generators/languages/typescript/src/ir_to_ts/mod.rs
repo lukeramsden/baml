@@ -74,6 +74,13 @@ pub(crate) fn stream_type_to_ts(field: &TypeStreaming, _lookup: &impl TypeLookup
             name: name.clone(),
             meta,
         },
+        T::DynamicTypeAlias { name, .. } => TypeTS::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
+            meta,
+        },
         T::Tuple(..) => TypeTS::Any {
             reason: "tuples are not supported in Go".to_string(),
             meta,
@@ -182,6 +189,13 @@ pub(crate) fn type_to_ts(field: &TypeNonStreaming, _lookup: &impl TypeLookups) -
         T::RecursiveTypeAlias { name, .. } => TypeTS::TypeAlias {
             package: type_pkg.clone(),
             name: name.clone(),
+            meta,
+        },
+        T::DynamicTypeAlias { name, .. } => TypeTS::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
             meta,
         },
         T::Union(union_type_generic, union_meta) => match union_type_generic.view() {

@@ -279,6 +279,7 @@ impl<'c> NestedChecks<'c> {
             FieldType::Map(_, kv, ..) => {
                 self.has_checks_nested(&kv.as_ref().0) || self.has_checks_nested(&kv.as_ref().1)
             }
+            FieldType::Dynamic(..) => false,
         }
     }
 }

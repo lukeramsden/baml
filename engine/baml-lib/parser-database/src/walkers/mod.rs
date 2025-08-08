@@ -397,6 +397,14 @@ impl<'db> crate::ParserDatabase {
                 }
                 t
             }
+            FieldType::Dynamic(arity, ..) => {
+                // Dynamic types are resolved at runtime through TypeBuilder
+                let mut t = Type::Unknown;
+                if arity.is_optional() {
+                    t = Type::None | t;
+                }
+                t
+            }
         }
     }
 }

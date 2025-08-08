@@ -110,6 +110,21 @@ class TypeBuilder:
     def add_baml(self, baml: str):
         return self._tb.add_baml(baml, self.__runtime)
 
+    def type_alias(self, name: str, type: FieldType):
+        """
+        Sets a type alias to a specific type. This is used to replace dynamic type aliases
+        (defined as `type X = @@dynamic` in BAML) with concrete types at runtime.
+        
+        Args:
+            name: The name of the type alias to set
+            type: The concrete type to use for this alias
+            
+        Example:
+            tb.type_alias("DynamicReturnType", tb.int())
+            tb.type_alias("FlexibleType", tb.union([tb.string(), tb.int()]))
+        """
+        return self._tb.type_alias(name, type)
+
 
 class NewClassBuilder:
     def __init__(self, tb: _TypeBuilder, name: str):

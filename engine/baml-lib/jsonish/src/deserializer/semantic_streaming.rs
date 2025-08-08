@@ -345,6 +345,7 @@ fn required_done<T>(
             })
         }
         TypeIR::Arrow(_, _) => false, // TODO: Error? Arrow shouldn't appear here.
+        TypeIR::DynamicTypeAlias { .. } => false, // Dynamic types determined at runtime
     };
 
     type_implies_done || metadata.streaming_behavior.done

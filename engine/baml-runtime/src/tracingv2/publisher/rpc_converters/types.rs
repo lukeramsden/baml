@@ -203,6 +203,7 @@ impl<'a> IntoRpcEvent<'a, baml_rpc::TypeReference> for baml_types::ir_type::Type
                 .type_lookup(alias.as_str())
                 .map(TypeReference::recursive_type_alias)
                 .unwrap_or(TypeReference::Unknown),
+            TypeGeneric::DynamicTypeAlias { .. } => TypeReference::Unknown,
             TypeGeneric::Arrow(..) => TypeReference::Unknown,
         };
         if !self.meta().constraints.is_empty() {

@@ -81,6 +81,13 @@ pub(crate) fn stream_type_to_go(field: &TypeStreaming, lookup: &impl TypeLookups
                 }
             }
         }
+        T::DynamicTypeAlias { name, .. } => TypeGo::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
+            meta,
+        },
         T::Tuple(..) => TypeGo::Any {
             reason: "tuples are not supported in Go".to_string(),
             meta,
@@ -222,6 +229,13 @@ pub(crate) fn type_to_go(field: &TypeNonStreaming, _lookup: &impl TypeLookups) -
                 }
             }
         }
+        T::DynamicTypeAlias { name, .. } => TypeGo::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
+            meta,
+        },
         T::Union(union_type_generic, union_meta) => match union_type_generic.view() {
             baml_types::ir_type::UnionTypeViewGeneric::Null => TypeGo::Any {
                 reason: "Null types are not supported in Go".to_string(),

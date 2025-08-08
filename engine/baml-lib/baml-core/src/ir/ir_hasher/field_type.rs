@@ -92,6 +92,11 @@ impl<'a> InterfaceFieldType<'a> {
             TypeIR::RecursiveTypeAlias { name, .. } => {
                 InterfaceFieldType::RecursiveTypeAlias(name.as_str())
             }
+            TypeIR::DynamicTypeAlias { name, .. } => {
+                // Dynamic type aliases are treated as unknown at interface level
+                // since their actual type is only known at runtime
+                InterfaceFieldType::RecursiveTypeAlias(name.as_str())
+            }
             TypeIR::Arrow(_, _) => InterfaceFieldType::Unknown,
         }
     }

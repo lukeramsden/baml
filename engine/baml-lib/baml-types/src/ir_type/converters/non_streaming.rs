@@ -85,5 +85,9 @@ pub fn from_type_ir(r#type: &TypeIR, _lookup: &impl TypeLookups) -> TypeNonStrea
                 meta,
             )
         }
+        TypeIR::DynamicTypeAlias { name, meta: _ } => TypeNonStreaming::DynamicTypeAlias {
+            name: name.clone(),
+            meta,
+        },
     }
 }

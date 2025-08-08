@@ -56,6 +56,15 @@ pub(crate) fn parse_assignment(pair: Pair<'_>, diagnostics: &mut Diagnostics) ->
                 field_type = parse_field_type_with_attr(current, false, diagnostics)
             }
 
+            Rule::dynamic_type_marker => {
+                // Handle @@dynamic type
+                field_type = Some(FieldType::Dynamic(
+                    FieldArity::Required,
+                    diagnostics.span(current.as_span()),
+                    None,
+                ))
+            }
+
             _ => parsing_catch_all(current, "type_alias"),
         }
     }

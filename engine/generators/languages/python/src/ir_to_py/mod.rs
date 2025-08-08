@@ -71,6 +71,13 @@ pub(crate) fn stream_type_to_py(field: &TypeStreaming, _lookup: &impl TypeLookup
             name: name.clone(),
             meta,
         },
+        T::DynamicTypeAlias { name, .. } => TypePy::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
+            meta,
+        },
         T::Tuple(..) => TypePy::Any {
             reason: "tuples are not supported in Py".to_string(),
             meta,
@@ -182,6 +189,13 @@ pub(crate) fn type_to_py(field: &TypeNonStreaming, _lookup: &impl TypeLookups) -
         T::RecursiveTypeAlias { name, .. } => TypePy::TypeAlias {
             package: type_pkg.clone(),
             name: name.clone(),
+            meta,
+        },
+        T::DynamicTypeAlias { name, .. } => TypePy::Any {
+            reason: format!(
+                "Dynamic type alias '{}' should be replaced at runtime",
+                name
+            ),
             meta,
         },
         T::Union(union_type_generic, union_meta) => match union_type_generic.view() {

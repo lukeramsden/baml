@@ -131,6 +131,8 @@ pub enum FieldType {
         Span,
         Option<Vec<Attribute>>,
     ),
+    // Dynamic type that can be replaced at runtime
+    Dynamic(FieldArity, Span, Option<Vec<Attribute>>),
 }
 
 impl FieldType {
@@ -138,6 +140,7 @@ impl FieldType {
         match self {
             FieldType::Symbol(_, name, ..) => name.name().to_string(),
             FieldType::Primitive(_, name, ..) => name.to_string(),
+            FieldType::Dynamic(..) => "@@dynamic".to_string(),
             _ => "Unknown".to_string(),
         }
     }
@@ -151,6 +154,7 @@ impl FieldType {
             FieldType::Tuple(.., span, _) => span,
             FieldType::Map(.., span, _) => span,
             FieldType::List(.., span, _) => span,
+            FieldType::Dynamic(_, span, _) => span,
         }
     }
 
@@ -167,6 +171,7 @@ impl FieldType {
             FieldType::Tuple(ref mut arity, ..) => *arity = FieldArity::Optional,
             FieldType::Map(ref mut arity, ..) => *arity = FieldArity::Optional,
             FieldType::List(ref mut arity, ..) => *arity = FieldArity::Optional,
+            FieldType::Dynamic(ref mut arity, ..) => *arity = FieldArity::Optional,
         };
 
         as_nullable
@@ -183,6 +188,7 @@ impl FieldType {
             FieldType::Literal(arity, _, _, _) => arity.is_optional(),
             FieldType::Map(arity, _kv, _, _) => arity.is_optional(),
             FieldType::List(arity, _t, _, _, _) => arity.is_optional(),
+            FieldType::Dynamic(arity, _, _) => arity.is_optional(),
         }
     }
 
@@ -203,6 +209,7 @@ impl FieldType {
             FieldType::List(_, t, ..) => t.flat_idns(),
             FieldType::Primitive(..) => vec![],
             FieldType::Literal(..) => vec![],
+            FieldType::Dynamic(..) => vec![],
         }
     }
 
@@ -214,7 +221,8 @@ impl FieldType {
             | FieldType::Union(.., attr)
             | FieldType::Tuple(.., attr)
             | FieldType::Map(.., attr)
-            | FieldType::List(.., attr) => attr.as_deref().unwrap_or(&[]),
+            | FieldType::List(.., attr)
+            | FieldType::Dynamic(.., attr) => attr.as_deref().unwrap_or(&[]),
         }
     }
 
@@ -226,7 +234,8 @@ impl FieldType {
             | FieldType::Union(.., attr)
             | FieldType::Tuple(.., attr)
             | FieldType::Map(.., attr)
-            | FieldType::List(.., attr) => *attr = None,
+            | FieldType::List(.., attr)
+            | FieldType::Dynamic(.., attr) => *attr = None,
         }
     }
 
@@ -238,7 +247,8 @@ impl FieldType {
             | FieldType::Union(.., attr)
             | FieldType::Tuple(.., attr)
             | FieldType::Map(.., attr)
-            | FieldType::List(.., attr) => *attr = Some(attributes),
+            | FieldType::List(.., attr)
+            | FieldType::Dynamic(.., attr) => *attr = Some(attributes),
         }
     }
 
@@ -250,7 +260,8 @@ impl FieldType {
             | FieldType::Union(.., attr)
             | FieldType::Tuple(.., attr)
             | FieldType::Map(.., attr)
-            | FieldType::List(.., attr) => match attr.as_mut() {
+            | FieldType::List(.., attr)
+            | FieldType::Dynamic(.., attr) => match attr.as_mut() {
                 Some(ats) => ats.extend(attributes),
                 None => *attr = Some(attributes),
             },
@@ -346,6 +357,13 @@ impl FieldType {
             (Map(..), _) => {
                 panic!("Different types: \n{self}\n---\n{other}")
             }
+            (Dynamic(arity1, _, attrs1), Dynamic(arity2, _, attrs2)) => {
+                assert_eq!(arity1, arity2);
+                attrs_eq(attrs1, attrs2);
+            }
+            (Dynamic(..), _) => {
+                panic!("Different types: \n{self}\n---\n{other}")
+            }
         }
     }
 }
@@ -401,6 +419,9 @@ impl std::fmt::Display for FieldType {
                     literal_value,
                     if arity.is_optional() { "?" } else { "" }
                 )
+            }
+            FieldType::Dynamic(arity, ..) => {
+                write!(f, "@@dynamic{}", if arity.is_optional() { "?" } else { "" })
             }
         }
     }
