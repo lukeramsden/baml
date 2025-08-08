@@ -122,6 +122,10 @@ where
             TypeGeneric::Arrow(_arrow_generic, _) => {
                 unimplemented!("Arrow types are not supported in CFFI");
             }
+            TypeGeneric::DynamicTypeAlias { .. } => {
+                // Dynamic type aliases are resolved at runtime and cannot be represented in CFFI
+                cType::AnyType(CffiFieldTypeAny::default())
+            }
             TypeGeneric::Union(union_type_generic, _) => {
                 let view = union_type_generic.view();
                 match view {
