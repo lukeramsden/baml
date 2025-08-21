@@ -144,6 +144,14 @@ impl TypeBuilder {
             .add_baml(baml, rt.inner.internal())
             .map_err(BamlError::from_anyhow)
     }
+
+    pub fn type_alias(&self, name: &str, r#type: &FieldType) {
+        let alias_builder = self.inner.upsert_type_alias(name);
+        alias_builder
+            .lock()
+            .unwrap()
+            .target(r#type.inner.lock().unwrap().clone());
+    }
 }
 
 #[pymethods]

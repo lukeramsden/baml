@@ -18,6 +18,7 @@ where
             crate::StreamingMode::NonStreaming => write!(f, "{name}"),
             crate::StreamingMode::Streaming => write!(f, "Streaming.{name}"),
         },
+        TypeGeneric::DynamicTypeAlias { name, .. } => write!(f, "{name}"),
         TypeGeneric::Primitive(t, _) => write!(f, "{t}"),
         TypeGeneric::Literal(v, _) => write!(f, "{v}"),
         TypeGeneric::Union(choices, _) => {

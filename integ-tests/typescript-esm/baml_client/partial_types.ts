@@ -502,6 +502,14 @@ export type Combination = number | string | boolean | number | string[] | Record
 
 export type Currency = types.Checked<number,"gt_ten"> | null
 
+export type DynamicAliasReturn = string | null
+
+export type DynamicFieldType = string | null
+
+export type DynamicInputType = string | null
+
+export type DynamicReturnType = string | null
+
 export type Graph = Record<string, string[]>
 
 export type JsonArray = JsonValue[]

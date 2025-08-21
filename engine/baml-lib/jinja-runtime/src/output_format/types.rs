@@ -479,6 +479,7 @@ impl OutputFormatContent {
                 TypeIR::Map(_, _, _) => Some(String::from("Answer in JSON using this schema:\n")),
                 TypeIR::Tuple(_, _) => None,
                 TypeIR::Arrow(_, _) => None, // TODO: Error? Arrow shouldn't appear here.
+                TypeIR::DynamicTypeAlias { .. } => None, // Dynamic types should be replaced at runtime
             }
         }
 
@@ -760,6 +761,12 @@ impl OutputFormatContent {
                 return Err(minijinja::Error::new(
                     minijinja::ErrorKind::BadSerialization,
                     "Arrow type is not supported in LLM function outputs",
+                ))
+            }
+            TypeIR::DynamicTypeAlias { name, .. } => {
+                return Err(minijinja::Error::new(
+                    minijinja::ErrorKind::BadSerialization,
+                    format!("Dynamic type alias '{name}' should be replaced at runtime"),
                 ))
             }
         })

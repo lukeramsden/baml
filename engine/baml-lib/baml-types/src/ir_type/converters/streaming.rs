@@ -123,6 +123,10 @@ pub fn from_type_ir(r#type: &TypeIR, lookup: &impl TypeLookups) -> TypeStreaming
                 };
                 TypeStreaming::Union(unsafe { UnionTypeGeneric::new_unsafe(variants) }, meta)
             }
+            TypeIR::DynamicTypeAlias { name, meta: _ } => TypeStreaming::DynamicTypeAlias {
+                name: name.clone(),
+                meta: meta.clone(),
+            },
         };
         if needed || base_type_streaming.is_optional() {
             // Needed streaming types, and streaming types that are optional, need
@@ -179,6 +183,7 @@ pub fn from_type_ir(r#type: &TypeIR, lookup: &impl TypeLookups) -> TypeStreaming
                 },
                 _ => Default::default(),
             },
+            TypeIR::DynamicTypeAlias { .. } => Default::default(),
             TypeIR::Class { .. }
             | TypeIR::List(..)
             | TypeIR::Map(..)

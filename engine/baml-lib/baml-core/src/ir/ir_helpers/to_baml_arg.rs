@@ -297,6 +297,12 @@ impl ArgCoercer {
                     }
                 }
             }
+            TypeIR::DynamicTypeAlias { name, .. } => {
+                // For dynamic type aliases, we should have the actual type replaced at runtime
+                // If we get here, it means the type wasn't replaced, which is an error
+                scope.push_error(format!("Dynamic type alias {name} was not replaced at runtime. Make sure to use TypeBuilder to provide a type for it."));
+                Err(ArgCoerceError)
+            }
             TypeIR::List(item, _) => match value {
                 BamlValue::List(arr) => {
                     let mut items = Vec::new();

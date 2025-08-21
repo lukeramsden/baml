@@ -1227,6 +1227,51 @@ export const GetDataType = async (
 };
 
 /**
+ * Executes the "GetDynamic" BAML action.
+ *
+ * This server action calls the underlying BAML function "GetDynamic"
+ * with the specified parameters.
+ *
+ *
+ * @returns {Promise<undefined>} A promise that resolves with the result of the action.
+ */
+export const GetDynamic = async (
+): Promise<undefined> => {
+  return b.GetDynamic(
+  );
+};
+
+/**
+ * Executes the "GetDynamicValue" BAML action.
+ *
+ * This server action calls the underlying BAML function "GetDynamicValue"
+ * with the specified parameters.
+ *
+ *
+ * @returns {Promise<undefined>} A promise that resolves with the result of the action.
+ */
+export const GetDynamicValue = async (
+): Promise<undefined> => {
+  return b.GetDynamicValue(
+  );
+};
+
+/**
+ * Executes the "GetDynamicValueAsync" BAML action.
+ *
+ * This server action calls the underlying BAML function "GetDynamicValueAsync"
+ * with the specified parameters.
+ *
+ *
+ * @returns {Promise<undefined>} A promise that resolves with the result of the action.
+ */
+export const GetDynamicValueAsync = async (
+): Promise<undefined> => {
+  return b.GetDynamicValueAsync(
+  );
+};
+
+/**
  * Executes the "GetOrderInfo" BAML action.
  *
  * This server action calls the underlying BAML function "GetOrderInfo"
@@ -1721,6 +1766,42 @@ export const PrimitiveAlias = async (
 ): Promise<number | string | boolean | number> => {
   return b.PrimitiveAlias(
     p,
+  );
+};
+
+/**
+ * Executes the "ProcessDynamic" BAML action.
+ *
+ * This server action calls the underlying BAML function "ProcessDynamic"
+ * with the specified parameters.
+ *
+ * @param { undefined } input - Input parameter.
+ *
+ * @returns {Promise<string>} A promise that resolves with the result of the action.
+ */
+export const ProcessDynamic = async (
+  input: undefined,
+): Promise<string> => {
+  return b.ProcessDynamic(
+    input,
+  );
+};
+
+/**
+ * Executes the "ProcessDynamicData" BAML action.
+ *
+ * This server action calls the underlying BAML function "ProcessDynamicData"
+ * with the specified parameters.
+ *
+ * @param { undefined } input_data - Input parameter.
+ *
+ * @returns {Promise<undefined>} A promise that resolves with the result of the action.
+ */
+export const ProcessDynamicData = async (
+  input_data: undefined,
+): Promise<undefined> => {
+  return b.ProcessDynamicData(
+    input_data,
   );
 };
 

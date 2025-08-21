@@ -233,6 +233,10 @@ impl WithJsonSchema for TypeIR {
                 "prefixItems": options.iter().map(|t| t.json_schema()).collect::<Vec<_>>(),
             }),
             TypeIR::Arrow(_, _) => json!({}), // TODO: Make this function partial - it should not return for Arrow.
+            TypeIR::DynamicTypeAlias { .. } => json!({
+                // Dynamic types can be anything at runtime
+                "type": ["number", "string", "boolean", "object", "array", "null"]
+            }),
         }
     }
 }

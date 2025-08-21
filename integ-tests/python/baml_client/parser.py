@@ -412,6 +412,24 @@ class LlmResponseParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetDataType", llm_response=llm_response, mode="request")
         return typing.cast(types.RaysData, result)
 
+    def GetDynamic(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamic", llm_response=llm_response, mode="request")
+        return typing.cast(typing.Any, result)
+
+    def GetDynamicValue(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamicValue", llm_response=llm_response, mode="request")
+        return typing.cast(typing.Any, result)
+
+    def GetDynamicValueAsync(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamicValueAsync", llm_response=llm_response, mode="request")
+        return typing.cast(typing.Any, result)
+
     def GetOrderInfo(
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> types.OrderInfo:
@@ -579,6 +597,18 @@ class LlmResponseParser:
     ) -> typing.Union[int, str, bool, float]:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PrimitiveAlias", llm_response=llm_response, mode="request")
         return typing.cast(typing.Union[int, str, bool, float], result)
+
+    def ProcessDynamic(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="ProcessDynamic", llm_response=llm_response, mode="request")
+        return typing.cast(str, result)
+
+    def ProcessDynamicData(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="ProcessDynamicData", llm_response=llm_response, mode="request")
+        return typing.cast(typing.Any, result)
 
     def PromptTestClaude(
         self, llm_response: str, baml_options: BamlCallOptions = {},
@@ -1812,6 +1842,24 @@ class LlmStreamParser:
         result = self.__options.merge_options(baml_options).parse_response(function_name="GetDataType", llm_response=llm_response, mode="stream")
         return typing.cast(stream_types.RaysData, result)
 
+    def GetDynamic(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamic", llm_response=llm_response, mode="stream")
+        return typing.cast(typing.Any, result)
+
+    def GetDynamicValue(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamicValue", llm_response=llm_response, mode="stream")
+        return typing.cast(typing.Any, result)
+
+    def GetDynamicValueAsync(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="GetDynamicValueAsync", llm_response=llm_response, mode="stream")
+        return typing.cast(typing.Any, result)
+
     def GetOrderInfo(
         self, llm_response: str, baml_options: BamlCallOptions = {},
     ) -> stream_types.OrderInfo:
@@ -1979,6 +2027,18 @@ class LlmStreamParser:
     ) -> typing.Union[int, str, bool, float]:
         result = self.__options.merge_options(baml_options).parse_response(function_name="PrimitiveAlias", llm_response=llm_response, mode="stream")
         return typing.cast(typing.Union[int, str, bool, float], result)
+
+    def ProcessDynamic(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="ProcessDynamic", llm_response=llm_response, mode="stream")
+        return typing.cast(str, result)
+
+    def ProcessDynamicData(
+        self, llm_response: str, baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).parse_response(function_name="ProcessDynamicData", llm_response=llm_response, mode="stream")
+        return typing.cast(typing.Any, result)
 
     def PromptTestClaude(
         self, llm_response: str, baml_options: BamlCallOptions = {},

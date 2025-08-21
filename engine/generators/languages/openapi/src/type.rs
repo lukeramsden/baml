@@ -262,6 +262,11 @@ pub fn convert_ir_type(ir: &IntermediateRepr, ty: &TypeNonStreaming) -> TypeOpen
             meta: meta_copy,
             additional_properties: true,
         },
+        TypeNonStreaming::DynamicTypeAlias { .. } => TypeOpenApi::AnyValue {
+            type_: "object".to_string(),
+            meta: meta_copy,
+            additional_properties: true,
+        },
     };
 
     let checks = ty

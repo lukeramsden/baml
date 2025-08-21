@@ -166,6 +166,15 @@ impl TypeBuilder {
     }
 
     #[napi]
+    pub fn type_alias(&self, name: String, r#type: &FieldType) {
+        let alias_builder = self.inner.upsert_type_alias(&name);
+        alias_builder
+            .lock()
+            .unwrap()
+            .target(r#type.inner.lock().unwrap().clone());
+    }
+
+    #[napi]
     pub fn to_string(&self) -> String {
         self.inner.to_string()
     }

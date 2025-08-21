@@ -12,8 +12,8 @@ fn track_walk(node: &ast::Stmt<'_>, state: &mut PredefinedTypes) {
         }
         ast::Stmt::EmitExpr(expr) => {
             let expr_type = evaluate_type(&expr.expr, state);
-            if expr_type.is_err() {
-                state.errors_mut().extend(expr_type.err().unwrap());
+            if let Err(errors) = expr_type {
+                state.errors_mut().extend(errors);
             }
         }
         ast::Stmt::EmitRaw(_) => {}

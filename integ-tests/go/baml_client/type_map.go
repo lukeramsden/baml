@@ -14,8 +14,6 @@
 package baml_client
 
 import (
-	"reflect"
-
 	"example.com/integ-tests/baml_client/stream_types"
 	"example.com/integ-tests/baml_client/types"
 )
@@ -290,6 +288,10 @@ var typeMap = map[string]reflect.Type{
 	"TYPES.Amount":             reflect.TypeOf(int64(0)),
 	"TYPES.Combination":        reflect.TypeOf(types.Union6BoolOrFloatOrIntOrListStringOrMapStringKeyListStringValueOrString{}),
 	"TYPES.Currency":           reflect.TypeOf(int64(0)),
+	"TYPES.DynamicAliasReturn": reflect.TypeOf(""),
+	"TYPES.DynamicFieldType":   reflect.TypeOf(""),
+	"TYPES.DynamicInputType":   reflect.TypeOf(""),
+	"TYPES.DynamicReturnType":  reflect.TypeOf(""),
 	"TYPES.Graph":              reflect.TypeOf(map[string][]string{}),
 	"TYPES.JsonArray":          reflect.TypeOf([]types.JsonValue{}),
 	"TYPES.JsonEntry":          reflect.TypeOf(types.Union2JsonTemplateOrSimpleTag{}),
@@ -311,6 +313,10 @@ var typeMap = map[string]reflect.Type{
 	"STREAM_TYPES.Amount":             reflect.TypeOf((*int64)(nil)),
 	"STREAM_TYPES.Combination":        reflect.TypeOf((*types.Union6BoolOrFloatOrIntOrListStringOrMapStringKeyListStringValueOrString)(nil)),
 	"STREAM_TYPES.Currency":           reflect.TypeOf((*types.Checked[int64])(nil)),
+	"STREAM_TYPES.DynamicAliasReturn": reflect.TypeOf((*string)(nil)),
+	"STREAM_TYPES.DynamicFieldType":   reflect.TypeOf((*string)(nil)),
+	"STREAM_TYPES.DynamicInputType":   reflect.TypeOf((*string)(nil)),
+	"STREAM_TYPES.DynamicReturnType":  reflect.TypeOf((*string)(nil)),
 	"STREAM_TYPES.Graph":              reflect.TypeOf(map[string][]string{}),
 	"STREAM_TYPES.JsonArray":          reflect.TypeOf([]stream_types.JsonValue{}),
 	"STREAM_TYPES.JsonEntry":          reflect.TypeOf((*stream_types.Union2JsonTemplateOrSimpleTag)(nil)),

@@ -41,6 +41,7 @@ impl TypeCoercer for TypeIR {
             TypeIR::Map(..) => try_cast_map(ctx, self, value).map(|v| v.with_target(target)),
             TypeIR::Tuple(_, _) => None,
             TypeIR::Arrow(_, _) => None,
+            TypeIR::DynamicTypeAlias { .. } => None, // Dynamic types should be resolved before coercion
         };
 
         match result {
@@ -175,6 +176,10 @@ impl TypeCoercer for TypeIR {
                         }
                         TypeIR::Tuple(_, _) => Err(ctx.error_internal("Tuple not supported")),
                         TypeIR::Arrow(_, _) => Err(ctx.error_internal("Arrow type not supported")),
+                        TypeIR::DynamicTypeAlias { name, .. } => Err(ctx.error_internal(format!(
+                            "Dynamic type alias '{}' should be resolved before coercion",
+                            name
+                        ))),
                     }
                 }
             }
@@ -304,6 +309,7 @@ impl DefaultValue for TypeIR {
             }
             TypeIR::Primitive(_, _) => None,
             TypeIR::Arrow(_, _) => None,
+            TypeIR::DynamicTypeAlias { .. } => None, // No default value for dynamic types
         };
 
         // TODO (Greg): Get rid of string-matching for this.

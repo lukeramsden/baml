@@ -540,6 +540,27 @@ class BamlSyncClient:
             "text": text,
         })
         return typing.cast(types.RaysData, result.cast_to(types, types, stream_types, False, __runtime__))
+    def GetDynamic(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="GetDynamic", args={
+            
+        })
+        return typing.cast(typing.Any, result.cast_to(types, types, stream_types, False, __runtime__))
+    def GetDynamicValue(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="GetDynamicValue", args={
+            
+        })
+        return typing.cast(typing.Any, result.cast_to(types, types, stream_types, False, __runtime__))
+    def GetDynamicValueAsync(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="GetDynamicValueAsync", args={
+            
+        })
+        return typing.cast(typing.Any, result.cast_to(types, types, stream_types, False, __runtime__))
     def GetOrderInfo(self, email: types.Email,
         baml_options: BamlCallOptions = {},
     ) -> types.OrderInfo:
@@ -736,6 +757,20 @@ class BamlSyncClient:
             "p": p,
         })
         return typing.cast(typing.Union[int, str, bool, float], result.cast_to(types, types, stream_types, False, __runtime__))
+    def ProcessDynamic(self, input: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> str:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="ProcessDynamic", args={
+            "input": input,
+        })
+        return typing.cast(str, result.cast_to(types, types, stream_types, False, __runtime__))
+    def ProcessDynamicData(self, input_data: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> typing.Any:
+        result = self.__options.merge_options(baml_options).call_function_sync(function_name="ProcessDynamicData", args={
+            "input_data": input_data,
+        })
+        return typing.cast(typing.Any, result.cast_to(types, types, stream_types, False, __runtime__))
     def PromptTestClaude(self, input: str,
         baml_options: BamlCallOptions = {},
     ) -> str:
@@ -2498,6 +2533,42 @@ class BamlStreamClient:
           lambda x: typing.cast(types.RaysData, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
+    def GetDynamic(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[typing.Any, typing.Any]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="GetDynamic", args={
+            
+        })
+        return baml_py.BamlSyncStream[typing.Any, typing.Any](
+          result,
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
+    def GetDynamicValue(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[typing.Any, typing.Any]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="GetDynamicValue", args={
+            
+        })
+        return baml_py.BamlSyncStream[typing.Any, typing.Any](
+          result,
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
+    def GetDynamicValueAsync(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[typing.Any, typing.Any]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="GetDynamicValueAsync", args={
+            
+        })
+        return baml_py.BamlSyncStream[typing.Any, typing.Any](
+          result,
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
     def GetOrderInfo(self, email: types.Email,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.BamlSyncStream[stream_types.OrderInfo, types.OrderInfo]:
@@ -2832,6 +2903,30 @@ class BamlStreamClient:
           result,
           lambda x: typing.cast(typing.Union[int, str, bool, float], x.cast_to(types, types, stream_types, True, __runtime__)),
           lambda x: typing.cast(typing.Union[int, str, bool, float], x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
+    def ProcessDynamic(self, input: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[str, str]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="ProcessDynamic", args={
+            "input": input,
+        })
+        return baml_py.BamlSyncStream[str, str](
+          result,
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(str, x.cast_to(types, types, stream_types, False, __runtime__)),
+          ctx,
+        )
+    def ProcessDynamicData(self, input_data: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[typing.Any, typing.Any]:
+        ctx, result = self.__options.merge_options(baml_options).create_sync_stream(function_name="ProcessDynamicData", args={
+            "input_data": input_data,
+        })
+        return baml_py.BamlSyncStream[typing.Any, typing.Any](
+          result,
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, True, __runtime__)),
+          lambda x: typing.cast(typing.Any, x.cast_to(types, types, stream_types, False, __runtime__)),
           ctx,
         )
     def PromptTestClaude(self, input: str,
@@ -4965,6 +5060,27 @@ class BamlHttpRequestClient:
             "text": text,
         }, mode="request")
         return result
+    def GetDynamic(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamic", args={
+            
+        }, mode="request")
+        return result
+    def GetDynamicValue(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamicValue", args={
+            
+        }, mode="request")
+        return result
+    def GetDynamicValueAsync(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamicValueAsync", args={
+            
+        }, mode="request")
+        return result
     def GetOrderInfo(self, email: types.Email,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
@@ -5159,6 +5275,20 @@ class BamlHttpRequestClient:
     ) -> baml_py.baml_py.HTTPRequest:
         result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="PrimitiveAlias", args={
             "p": p,
+        }, mode="request")
+        return result
+    def ProcessDynamic(self, input: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ProcessDynamic", args={
+            "input": input,
+        }, mode="request")
+        return result
+    def ProcessDynamicData(self, input_data: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ProcessDynamicData", args={
+            "input_data": input_data,
         }, mode="request")
         return result
     def PromptTestClaude(self, input: str,
@@ -6597,6 +6727,27 @@ class BamlHttpStreamRequestClient:
             "text": text,
         }, mode="stream")
         return result
+    def GetDynamic(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamic", args={
+            
+        }, mode="stream")
+        return result
+    def GetDynamicValue(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamicValue", args={
+            
+        }, mode="stream")
+        return result
+    def GetDynamicValueAsync(self, 
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="GetDynamicValueAsync", args={
+            
+        }, mode="stream")
+        return result
     def GetOrderInfo(self, email: types.Email,
         baml_options: BamlCallOptions = {},
     ) -> baml_py.baml_py.HTTPRequest:
@@ -6791,6 +6942,20 @@ class BamlHttpStreamRequestClient:
     ) -> baml_py.baml_py.HTTPRequest:
         result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="PrimitiveAlias", args={
             "p": p,
+        }, mode="stream")
+        return result
+    def ProcessDynamic(self, input: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ProcessDynamic", args={
+            "input": input,
+        }, mode="stream")
+        return result
+    def ProcessDynamicData(self, input_data: typing.Any,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.baml_py.HTTPRequest:
+        result = self.__options.merge_options(baml_options).create_http_request_sync(function_name="ProcessDynamicData", args={
+            "input_data": input_data,
         }, mode="stream")
         return result
     def PromptTestClaude(self, input: str,

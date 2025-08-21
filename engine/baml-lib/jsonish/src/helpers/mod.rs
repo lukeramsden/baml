@@ -297,6 +297,7 @@ fn relevant_data_models<'a>(
             TypeIR::Literal(_, _) => {}
             TypeIR::Primitive(_, _) => {}
             TypeIR::Arrow(_, _) => {}
+            TypeIR::DynamicTypeAlias { .. } => {} // Dynamic types are resolved at runtime
         }
     }
 

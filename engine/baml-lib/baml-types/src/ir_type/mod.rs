@@ -43,6 +43,10 @@ pub enum TypeGeneric<T> {
         mode: StreamingMode,
         meta: T,
     },
+    DynamicTypeAlias {
+        name: String,
+        meta: T,
+    },
     Tuple(Vec<TypeGeneric<T>>, T),
     Arrow(Box<ArrowGeneric<T>>, T),
     Union(UnionTypeGeneric<T>, T),
@@ -407,7 +411,8 @@ impl<T> TypeGeneric<T> {
             | TypeGeneric::Enum { .. }
             | TypeGeneric::Literal(..)
             | TypeGeneric::Class { .. }
-            | TypeGeneric::RecursiveTypeAlias { .. } => vec![],
+            | TypeGeneric::RecursiveTypeAlias { .. }
+            | TypeGeneric::DynamicTypeAlias { .. } => vec![],
             TypeGeneric::List(inner, _) => inner.find_if(predicate, ignore_map_keys),
             TypeGeneric::Map(key_type, value_type, _) => {
                 let mut res = value_type.find_if(predicate, ignore_map_keys);
@@ -449,6 +454,7 @@ impl<T> TypeGeneric<T> {
             TypeGeneric::List(_, type_metadata_ir) => *type_metadata_ir = meta,
             TypeGeneric::Map(_, _, type_metadata_ir) => *type_metadata_ir = meta,
             TypeGeneric::RecursiveTypeAlias { meta: m, .. } => *m = meta,
+            TypeGeneric::DynamicTypeAlias { meta: m, .. } => *m = meta,
             TypeGeneric::Tuple(_, type_metadata_ir) => *type_metadata_ir = meta,
             TypeGeneric::Union(_, type_metadata_ir) => *type_metadata_ir = meta,
         }
@@ -464,6 +470,7 @@ impl<T> TypeGeneric<T> {
             TypeGeneric::List(_, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::Map(_, _, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::RecursiveTypeAlias { meta, .. } => meta,
+            TypeGeneric::DynamicTypeAlias { meta, .. } => meta,
             TypeGeneric::Tuple(_, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::Union(_, type_metadata_ir) => type_metadata_ir,
         }
@@ -523,6 +530,10 @@ impl<T> TypeGeneric<T> {
                     name: name.clone(),
                 }
             }
+            TypeGeneric::DynamicTypeAlias { meta, name } => TypeGeneric::DynamicTypeAlias {
+                meta: f(meta),
+                name: name.clone(),
+            },
             TypeGeneric::Tuple(inner, type_metadata_ir) => TypeGeneric::Tuple(
                 inner.iter().map(|t| t.map_meta(f)).collect(),
                 f(type_metadata_ir),
@@ -547,6 +558,7 @@ impl<T> TypeGeneric<T> {
             TypeGeneric::List(_, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::Map(_, _, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::RecursiveTypeAlias { meta, .. } => meta,
+            TypeGeneric::DynamicTypeAlias { meta, .. } => meta,
             TypeGeneric::Tuple(_, type_metadata_ir) => type_metadata_ir,
             TypeGeneric::Union(_, type_metadata_ir) => type_metadata_ir,
         }
@@ -617,6 +629,9 @@ impl<T> TypeGeneric<T> {
                     queue.push(&arrow.return_type);
                 }
                 TypeGeneric::RecursiveTypeAlias { name, .. } => {
+                    deps.insert(name.clone());
+                }
+                TypeGeneric::DynamicTypeAlias { name, .. } => {
                     deps.insert(name.clone());
                 }
                 TypeGeneric::Primitive(_, _) | TypeGeneric::Literal(_, _) => {}
@@ -691,6 +706,7 @@ impl<T> TypeGeneric<T> {
                 merge_modes(items.into_iter())
             }
             TypeGeneric::RecursiveTypeAlias { mode, .. } => Ok(*mode),
+            TypeGeneric::DynamicTypeAlias { .. } => Ok(StreamingMode::NonStreaming),
             TypeGeneric::Tuple(inner, _) => {
                 merge_modes(inner.iter().map(|t| t.mode(mode, _lookup)))
             }
@@ -739,6 +755,7 @@ impl<Meta: std::hash::Hash + std::cmp::Eq> ToUnionName<Meta> for TypeGeneric<Met
             | T::Literal(_, _)
             | T::Class { .. }
             | T::RecursiveTypeAlias { .. }
+            | T::DynamicTypeAlias { .. }
             | T::Arrow(_, _) => IndexSet::new(),
             T::Tuple(inner, _) => inner.iter().flat_map(|t| t.find_union_types()).collect(),
         }
@@ -796,6 +813,7 @@ impl<Meta: std::hash::Hash + std::cmp::Eq> ToUnionName<Meta> for TypeGeneric<Met
                     .join("__")
             ),
             T::RecursiveTypeAlias { name, .. } => name.to_string(),
+            T::DynamicTypeAlias { name, .. } => name.to_string(),
             T::Arrow(_, _) => "function".to_string(),
         }
     }

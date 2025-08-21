@@ -13,11 +13,27 @@
 
 package types
 
+import (
+	"encoding/json"
+	"fmt"
+
+	baml "github.com/boundaryml/baml/engine/language_client_go/pkg"
+	"github.com/boundaryml/baml/engine/language_client_go/pkg/cffi"
+)
+
 type Amount = int64
 
 type Combination = Union6BoolOrFloatOrIntOrListStringOrMapStringKeyListStringValueOrString
 
 type Currency = Checked[int64]
+
+type DynamicAliasReturn = string
+
+type DynamicFieldType = string
+
+type DynamicInputType = string
+
+type DynamicReturnType = string
 
 type Graph = map[string][]string
 

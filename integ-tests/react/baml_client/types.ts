@@ -851,6 +851,14 @@ export type Combination = number | string | boolean | number | string[] | Record
 
 export type Currency = Checked<number,"gt_ten">
 
+export type DynamicAliasReturn = string
+
+export type DynamicFieldType = string
+
+export type DynamicInputType = string
+
+export type DynamicReturnType = string
+
 export type Graph = Record<string, string[]>
 
 export type JsonArray = JsonValue[]

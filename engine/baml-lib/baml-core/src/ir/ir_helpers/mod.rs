@@ -129,6 +129,8 @@ pub trait IRHelperExtended: IRSemanticStreamingHelper {
             (_, TypeIR::RecursiveTypeAlias { name, .. }) => self
                 .get_all_recursive_aliases(name)
                 .any(|target| self.is_subtype(base, target)),
+            // Dynamic type aliases cannot be compared until runtime replacement
+            (TypeIR::DynamicTypeAlias { .. }, _) | (_, TypeIR::DynamicTypeAlias { .. }) => false,
             (TypeIR::Primitive(p1, _), TypeIR::Primitive(p2, _)) => p1 == p2,
             (TypeIR::Primitive(TypeValue::Null, _), _) => false,
             (TypeIR::Primitive(p1, _), _) => false,
@@ -888,6 +890,7 @@ fn item_type(ir: &(impl IRHelperExtended + ?Sized), field_type: &TypeIR) -> Opti
         },
         TypeIR::Tuple(_, _) => None,
         TypeIR::Arrow(_, _) => None,
+        TypeIR::DynamicTypeAlias { .. } => None,
     };
     res
 }
@@ -944,6 +947,7 @@ where
         }
         TypeIR::Class { .. } => None,
         TypeIR::Arrow(_, _) => None,
+        TypeIR::DynamicTypeAlias { .. } => None,
     };
     res
 }

@@ -944,6 +944,48 @@ paths:
                 title: GetDataTypeResponse
                 $ref: '#/components/schemas/RaysData'
       operationId: GetDataType
+  /call/GetDynamic:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/GetDynamic'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: GetDynamicResponse
+                type: object
+                additionalProperties: true
+      operationId: GetDynamic
+  /call/GetDynamicValue:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/GetDynamicValue'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: GetDynamicValueResponse
+                type: object
+                additionalProperties: true
+      operationId: GetDynamicValue
+  /call/GetDynamicValueAsync:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/GetDynamicValueAsync'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: GetDynamicValueAsyncResponse
+                type: object
+                additionalProperties: true
+      operationId: GetDynamicValueAsync
   /call/GetOrderInfo:
     post:
       requestBody:
@@ -1375,6 +1417,33 @@ paths:
                 - type: boolean
                 - type: number
       operationId: PrimitiveAlias
+  /call/ProcessDynamic:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/ProcessDynamic'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ProcessDynamicResponse
+                type: string
+      operationId: ProcessDynamic
+  /call/ProcessDynamicData:
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/ProcessDynamicData'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                title: ProcessDynamicDataResponse
+                type: object
+                additionalProperties: true
+      operationId: ProcessDynamicData
   /call/PromptTestClaude:
     post:
       requestBody:
@@ -4082,6 +4151,45 @@ components:
             required:
             - text
             additionalProperties: false
+    GetDynamic:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: GetDynamicRequest
+            type: object
+            properties:
+              __baml_options__:
+                nullable: true
+                $ref: '#/components/schemas/BamlOptions'
+            required: []
+            additionalProperties: false
+    GetDynamicValue:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: GetDynamicValueRequest
+            type: object
+            properties:
+              __baml_options__:
+                nullable: true
+                $ref: '#/components/schemas/BamlOptions'
+            required: []
+            additionalProperties: false
+    GetDynamicValueAsync:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: GetDynamicValueAsyncRequest
+            type: object
+            properties:
+              __baml_options__:
+                nullable: true
+                $ref: '#/components/schemas/BamlOptions'
+            required: []
+            additionalProperties: false
     GetOrderInfo:
       required: true
       content:
@@ -4561,6 +4669,40 @@ components:
                 $ref: '#/components/schemas/BamlOptions'
             required:
             - p
+            additionalProperties: false
+    ProcessDynamic:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: ProcessDynamicRequest
+            type: object
+            properties:
+              input:
+                type: object
+                additionalProperties: true
+              __baml_options__:
+                nullable: true
+                $ref: '#/components/schemas/BamlOptions'
+            required:
+            - input
+            additionalProperties: false
+    ProcessDynamicData:
+      required: true
+      content:
+        application/json:
+          schema:
+            title: ProcessDynamicDataRequest
+            type: object
+            properties:
+              input_data:
+                type: object
+                additionalProperties: true
+              __baml_options__:
+                nullable: true
+                $ref: '#/components/schemas/BamlOptions'
+            required:
+            - input_data
             additionalProperties: false
     PromptTestClaude:
       required: true
